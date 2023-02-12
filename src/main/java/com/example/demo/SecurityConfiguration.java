@@ -17,19 +17,12 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(a -> {
-                            try {
-                                a
-                                        .requestMatchers("/**").authenticated()
-                                        .and()
-                                        .formLogin().loginPage("/login").permitAll();
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                );
+                .authorizeHttpRequests()
+                .requestMatchers("/**").authenticated()
+                .and()
+                .formLogin().loginPage("/login").permitAll();
         return http.build();
     }
 
